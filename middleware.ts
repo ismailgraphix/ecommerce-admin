@@ -1,8 +1,24 @@
 // middleware.ts
+import { NextRequest, NextResponse } from 'next/server';
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
-export default function customMiddleware(req, ev) {
+const PUBLIC_ROUTES = ['/api/:path*'];
+
+export default function middleware(req: NextRequest, ev: any) {
   console.log('Middleware is running');
+
+  // Check if the request URL is for a public route
+  const isPublicRoute = PUBLIC_ROUTES.some(route => {
+    const regex = new RegExp(`^${route.replace('*', '.*')}$`);
+    return regex.test(req.nextUrl.pathname);
+  });
+
+  // If it's a public route, proceed without Clerk middleware
+  if (isPublicRoute) {
+    return NextResponse.next();
+  }
+
+  // Apply Clerk middleware for all other routes
   return clerkMiddleware()(req, ev);
 }
 
