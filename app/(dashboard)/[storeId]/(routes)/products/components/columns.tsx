@@ -14,7 +14,7 @@ export type ProductColumn = {
   isFeatured: boolean
   isArchived: boolean
   createdAt: string
-  email: string
+  
 }
 
 export const columns: ColumnDef<ProductColumn>[] = [
