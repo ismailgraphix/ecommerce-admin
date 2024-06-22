@@ -8,7 +8,7 @@ export type BillboardColumn = {
   id: string
   label: string
   createdAt: string
-  email: string
+  
 }
 
 export const columns: ColumnDef<BillboardColumn>[] = [
