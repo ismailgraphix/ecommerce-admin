@@ -6,7 +6,6 @@ import { CellAction } from "./cell-action"
 
 export type BillboardColumn = {
   id: string
-  name: string
   label: string
   createdAt: string
   
