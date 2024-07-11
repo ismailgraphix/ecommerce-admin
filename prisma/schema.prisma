@@ -118,7 +118,7 @@ model Image {
 model Order {
   id         String     @id @default(uuid())
   storeId    String
-  name       String
+  name       String?
   store      Store      @relation("StoreToOrder", fields: [storeId], references: [id])
   orderItems OrderItem[]
   isPaid     Boolean    @default(false)
