@@ -27,15 +27,15 @@ const OrdersPage = async ({
 
     const formatedOrders: OrderColumn[] = orders.map((item) => ({
         id: item.id,
-        name: item.name,
+        name: item.name ?? '', // Ensure name is treated as string, handling null case
         phone: item.phone,
         address: item.address,
         products: item.orderItems.map((orderItem) => orderItem.product.name).join(', '),
-        totalPrice: formatter.format(item.orderItems.reduce((total, item) => {
-            return total + Number(item.product.price)
+        totalPrice: formatter.format(item.orderItems.reduce((total, orderItem) => {
+            return total + Number(orderItem.product.price)
         }, 0)),
         isPaid: item.isPaid,
-        createdAt: format(item.createdAt, 'MMMM do, yyyy')
+        createdAt: format(new Date(item.createdAt), 'MMMM do, yyyy') // Ensure createdAt is formatted correctly
     }));
 
     return (
